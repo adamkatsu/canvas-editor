@@ -143,10 +143,21 @@ layer.add(rect1);
 layer.add(selectionRectangle);
 
 layer.add(tr)
-tr.nodes([rect1]);
 
 // add the layer to the stage
 stage.add(layer);
 
 // draw the image
 layer.draw();
+
+
+document.getElementById('download').addEventListener('click', function(e) {
+    const canvas = document.querySelector('#container canvas');
+    let canvasUrl = canvas.toDataURL("image/png", 0.5);
+    console.log(canvasUrl);
+    const createEl = document.createElement('a');
+    createEl.href = canvasUrl;
+    createEl.download = "your-canvas-image";
+    createEl.click();
+    createEl.remove();
+  });
