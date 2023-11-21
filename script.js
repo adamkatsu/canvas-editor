@@ -1,9 +1,10 @@
+// Environment Setup
+
 var stage = new Konva.Stage({
     container: 'container',   // id of container <div>
     width: window.innerWidth - 100,
     height: window.innerHeight - 100,
-  });
-
+});
 var layer = new Konva.Layer();
 var background = new Konva.Rect({
     x: 0,
@@ -13,7 +14,9 @@ var background = new Konva.Rect({
     fill: 'white',
     listening: false
 });
-// create our shape
+
+// Create Shape
+
 var circle = new Konva.Circle({
     id: 'circle',
     x: stage.width() / 2,
@@ -34,15 +37,20 @@ var rect1 = new Konva.Rect({
     stroke: 'black',
     strokeWidth: 2,
     draggable: true
-  });
-  // add the shape to the layer
+});
 
 let shapes = [circle, rect1];
-let imagesArr = [];
-let currentImg = [];
+shapes.forEach((shape) => {
+    dragEvent(shape);
+});
+
+// Image Upload
 
 const inputImg = document.getElementById('input-img');
 const output = document.getElementById('output');
+
+let imagesArr = [];
+let currentImg = [];
 
 inputImg.addEventListener("change", () => {
     const file = inputImg.files;
@@ -50,6 +58,9 @@ inputImg.addEventListener("change", () => {
     currentImg.push(file[0]);
     displayImages();
 });
+
+
+// Functions
 
 function displayImages() {
     currentImg.forEach((image, index) => {
@@ -59,7 +70,8 @@ function displayImages() {
               y: stage.width() / 2,
               width: image.naturalWidth,
               height: image.naturalHeight,
-              draggable: true
+              draggable: true,
+              name: "rect"
             });
             layer.add(newImage);
             dragEvent(newImage);
@@ -68,25 +80,57 @@ function displayImages() {
         // layer.add(Konva.Transformer.nodes([newImage]));
     });
 }
-imagesArr.forEach((image) => {
-    dragEvent(image);
-});
-shapes.forEach((shape) => {
-    dragEvent(shape);
-});
 function dragEvent(x) {
     x.on('dragmove', function() {
-        x.opacity(0.8);
-        x.scaleX(0.9);
-        x.scaleY(0.9);
+        x.opacity(0.9);
+        x.stroke('black');
+        x.strokeWidth(4);
+
     });
     x.on('dragend', function() {
         x.opacity(1);
-        x.scaleX(1);
-        x.scaleY(1);
+        x.strokeWidth(0);
     });
 }
 
+
+// add a new feature, lets add ability to draw selection rectangle
+var selectionRectangle = new Konva.Rect({
+    fill: 'rgba(0,0,0,0.2)',
+    visible: false,
+});
+
+
+// clicks should select/deselect shapes
+stage.on('click tap', function (e) {
+    // if click on empty area - remove all selections
+    console.log(e.target);
+    if (e.target === stage) {
+      tr.nodes([]);
+      return;
+    }
+
+    // do we pressed shift or ctrl?
+    const metaPressed = e.evt.shiftKey || e.evt.ctrlKey || e.evt.metaKey;
+    const isSelected = tr.nodes().indexOf(e.target) >= 0;
+
+    if (!metaPressed && !isSelected) {
+      // if no key pressed and the node is not selected
+      // select just one
+      tr.nodes([e.target]);
+    } else if (metaPressed && isSelected) {
+      // if we pressed keys and node was selected
+      // we need to remove it from selection:
+      const nodes = tr.nodes().slice(); // use slice to have new copy of array
+      // remove node from array
+      nodes.splice(nodes.indexOf(e.target), 1);
+      tr.nodes(nodes);
+    } else if (metaPressed && !isSelected) {
+      // add the node into selection
+      const nodes = tr.nodes().concat([e.target]);
+      tr.nodes(nodes);
+    }
+});
 
 
 var tr = new Konva.Transformer();
@@ -95,10 +139,10 @@ var tr = new Konva.Transformer();
 layer.add(background);
 layer.add(circle);
 layer.add(rect1);
+layer.add(selectionRectangle);
 
 layer.add(tr)
 tr.nodes([rect1]);
-
 
 // add the layer to the stage
 stage.add(layer);
