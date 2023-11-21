@@ -57,6 +57,7 @@ inputImg.addEventListener("change", () => {
     imagesArr.push(file[0]);
     currentImg.push(file[0]);
     displayImages();
+    inputImg.value = "";
 });
 
 
