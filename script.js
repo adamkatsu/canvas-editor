@@ -66,8 +66,8 @@ function displayImages() {
     currentImg.forEach((image, index) => {
         Konva.Image.fromURL(`${URL.createObjectURL(image)}`, function (newImage) {
             newImage.setAttrs({
-              x: stage.width() / 2,
-              y: stage.width() / 2,
+              x: stage.width() / 4,
+              y: stage.width() / 4,
               width: image.naturalWidth,
               height: image.naturalHeight,
               draggable: true,
