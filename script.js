@@ -147,7 +147,7 @@ stage.add(layer);
 layer.draw();
 
 
-document.getElementById('download').addEventListener('click', function(e) {
+document.getElementById('download').addEventListener('click', () => {
     const canvas = document.querySelector('#container canvas');
     let canvasUrl = canvas.toDataURL("image/png", 1.0);
     console.log(canvasUrl);
@@ -157,8 +157,12 @@ document.getElementById('download').addEventListener('click', function(e) {
     createEl.click();
     createEl.remove();
 });
-document.getElementById('select-image').addEventListener('click', function(e) {
+document.getElementById('select-image').addEventListener('click', () => {
     const canvas = document.querySelector('#container canvas');
     let canvasUrl = canvas.toDataURL("image/png", 1.0);
     document.getElementById('input-cart-img').setAttribute('value', canvasUrl);
 });
+document.getElementById('clear-value').addEventListener('click', () => {
+    document.getElementById('input-cart-img').removeAttribute('value');
+
+})
