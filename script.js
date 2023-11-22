@@ -6,6 +6,7 @@ var stage = new Konva.Stage({
     height: 900,
 });
 var layer = new Konva.Layer();
+// White Background
 var background = new Konva.Rect({
     x: 0,
     y: 0,
@@ -15,7 +16,7 @@ var background = new Konva.Rect({
     listening: false
 });
 
-// Create Shape
+// Create Placeholder Shape
 
 var circle = new Konva.Circle({
     id: 'circle',
@@ -47,10 +48,10 @@ shapes.forEach((shape) => {
 // Image Upload
 
 const inputImg = document.getElementById('input-img');
-const output = document.getElementById('output');
-
 let imagesArr = [];
 let currentImg = [];
+
+// Put image in array for further use
 
 inputImg.addEventListener("change", () => {
     const file = inputImg.files;
@@ -63,7 +64,9 @@ inputImg.addEventListener("change", () => {
 
 // Functions
 
+// Show image in canvas
 function displayImages() {
+    // take data from currentImg Array
     currentImg.forEach((image, index) => {
         Konva.Image.fromURL(`${URL.createObjectURL(image)}`, function (newImage) {
             newImage.setAttrs({
@@ -76,20 +79,21 @@ function displayImages() {
             });
             layer.add(newImage);
             dragEvent(newImage);
+            // Clear currentImg Array to prevent double image
             currentImg.pop();
         });
-        // layer.add(Konva.Transformer.nodes([newImage]));
     });
 }
 function dragEvent(x) {
     x.on('dragmove', function() {
-        x.opacity(0.9);
-        x.stroke('black');
-        x.strokeWidth(4);
-
+        x.scaleX(0.95);
+        x.scaleY(0.95);
+        x.stroke('blue');
+        x.strokeWidth(2);
     });
     x.on('dragend', function() {
-        x.opacity(1);
+        x.scaleX(1);
+        x.scaleY(1);
         x.strokeWidth(0);
     });
 }
@@ -134,8 +138,6 @@ var tr = new Konva.Transformer();
 layer.add(background);
 layer.add(circle);
 layer.add(rect1);
-// layer.add(selectionRectangle);
-
 layer.add(tr)
 
 // add the layer to the stage
@@ -159,11 +161,4 @@ document.getElementById('select-image').addEventListener('click', function(e) {
     const canvas = document.querySelector('#container canvas');
     let canvasUrl = canvas.toDataURL("image/png", 1.0);
     document.getElementById('input-cart-img').setAttribute('value', canvasUrl);
-
-    // console.log(canvasUrl);
-    // const createEl = document.createElement('a');
-    // createEl.href = canvasUrl;
-    // createEl.download = "your-canvas-image";
-    // createEl.click();
-    // createEl.remove();
 });
