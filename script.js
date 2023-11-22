@@ -2,8 +2,8 @@
 
 var stage = new Konva.Stage({
     container: 'container',   // id of container <div>
-    width: window.innerWidth - 100,
-    height: window.innerHeight - 100,
+    width: 1600,
+    height: 900,
 });
 var layer = new Konva.Layer();
 var background = new Konva.Rect({
@@ -95,13 +95,6 @@ function dragEvent(x) {
 }
 
 
-// add a new feature, lets add ability to draw selection rectangle
-var selectionRectangle = new Konva.Rect({
-    fill: 'rgba(0,0,0,0.2)',
-    visible: false,
-});
-
-
 // clicks should select/deselect shapes
 stage.on('click tap', function (e) {
     // if click on empty area - remove all selections
@@ -141,7 +134,7 @@ var tr = new Konva.Transformer();
 layer.add(background);
 layer.add(circle);
 layer.add(rect1);
-layer.add(selectionRectangle);
+// layer.add(selectionRectangle);
 
 layer.add(tr)
 
@@ -161,4 +154,16 @@ document.getElementById('download').addEventListener('click', function(e) {
     createEl.download = "your-canvas-image";
     createEl.click();
     createEl.remove();
-  });
+});
+document.getElementById('select-image').addEventListener('click', function(e) {
+    const canvas = document.querySelector('#container canvas');
+    let canvasUrl = canvas.toDataURL("image/png", 1.0);
+    document.getElementById('input-cart-img').setAttribute('value', canvasUrl);
+
+    // console.log(canvasUrl);
+    // const createEl = document.createElement('a');
+    // createEl.href = canvasUrl;
+    // createEl.download = "your-canvas-image";
+    // createEl.click();
+    // createEl.remove();
+});

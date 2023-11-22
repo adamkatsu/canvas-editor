@@ -6,14 +6,26 @@
     <script src="https://unpkg.com/konva@9/konva.min.js"></script>
     <title>Canvas Editor
     </title>
+    <style>
+        input, button {
+            display: block;
+        }
+    </style>
+    
 </head>
-<body style="background-color: grey">
-
+<body style="background-color: grey; display: flex; flex-direction: row; justify-content: flex-start; align-items: flex-start; gap: 16px; color: whitesmoke;">
+    
 
     <div id="container" style="width: 100%; height: 100%; margin: auto;"></div>
-    <input id="input-img" type="file" accept="image/*">
-    <button id="download">Download</button>
-    <div id="output"></div>
+    <div class="buttons-wrapper" style="display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: .5rem;">
+        <h2>Download Image</h2>
+        <input id="input-img" type="file" accept="image/*">
+        <button id="download">Download</button>
+        <h2>Set image in input</h2>
+        <button id="select-image">Set</button>
+        <input id="input-cart-img" type="file" accept="image/*">
+        <div id="output"></div>
+    </div>
 
     <script src="script.js"></script>
     
