@@ -111,7 +111,7 @@ stage.on('click tap', function (e) {
       return;
     }
 
-    
+
     // do we pressed shift or ctrl?
     const metaPressed = e.evt.shiftKey || e.evt.ctrlKey || e.evt.metaKey;
     const isSelected = tr.nodes().indexOf(e.target) >= 0;
@@ -154,7 +154,7 @@ layer.draw();
 
 document.getElementById('download').addEventListener('click', function(e) {
     const canvas = document.querySelector('#container canvas');
-    let canvasUrl = canvas.toDataURL("image/png", 0.5);
+    let canvasUrl = canvas.toDataURL("image/png", 1.0);
     console.log(canvasUrl);
     const createEl = document.createElement('a');
     createEl.href = canvasUrl;
