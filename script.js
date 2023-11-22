@@ -111,6 +111,7 @@ stage.on('click tap', function (e) {
       return;
     }
 
+    
     // do we pressed shift or ctrl?
     const metaPressed = e.evt.shiftKey || e.evt.ctrlKey || e.evt.metaKey;
     const isSelected = tr.nodes().indexOf(e.target) >= 0;
