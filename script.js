@@ -78,7 +78,7 @@ function displayImages() {
               name: "rect"
             });
             layer.add(newImage);
-            dragEvent(newImage);
+            // dragEvent(newImage);
             // Clear currentImg Array to prevent double image
             currentImg.pop();
         });
@@ -86,14 +86,10 @@ function displayImages() {
 }
 function dragEvent(x) {
     x.on('dragmove', function() {
-        x.scaleX(0.95);
-        x.scaleY(0.95);
         x.stroke('blue');
         x.strokeWidth(2);
     });
     x.on('dragend', function() {
-        x.scaleX(1);
-        x.scaleY(1);
         x.strokeWidth(0);
     });
 }
@@ -102,7 +98,7 @@ function dragEvent(x) {
 // clicks should select/deselect shapes
 stage.on('click tap', function (e) {
     // if click on empty area - remove all selections
-    console.log(e.target);
+    // console.log(e.target);
     if (e.target === stage) {
       tr.nodes([]);
       return;
@@ -129,6 +125,7 @@ stage.on('click tap', function (e) {
       const nodes = tr.nodes().concat([e.target]);
       tr.nodes(nodes);
     }
+
 });
 
 
@@ -148,6 +145,8 @@ layer.draw();
 
 
 document.getElementById('download').addEventListener('click', () => {
+    tr.nodes([]);
+
     const canvas = document.querySelector('#container canvas');
     let canvasUrl = canvas.toDataURL("image/png", 1.0);
     console.log(canvasUrl);
