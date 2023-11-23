@@ -8,7 +8,7 @@
     </title>
     <style>
         input, button {
-            display: block;
+            display: block !important;
         }
     </style>
     
@@ -20,12 +20,19 @@
     <div class="buttons-wrapper" style="display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: .5rem;">
         <h2>Upload Image</h2>
         <input id="input-img" type="file" accept="image/*">
+        <h2>Layer Navigation</h2>
+        <div class="display: flex; flex-direction: row; gap: 1rem; flex-wrap: wrap;">
+            <button id="toTop">Move to top</button>
+            <button id="toBottom">Move to bottom</button>
+            <!-- <button id="down">Move down</button>
+            <button id="up">Move up</button> -->
+        </div>
         <h2>Download Image</h2>
         <button id="download">Download</button>
         <h2>Set image in input</h2>
         <button id="select-image">Set Value</button>
         <button id="clear-value">Clear Value</button>
-        <span>Placeholder input</span>
+        <span>((Placeholder input))</span>
         <input id="input-cart-img" type="file" accept="image/*">
     </div>
 

@@ -13,7 +13,8 @@ var background = new Konva.Rect({
     width: stage.width(),
     height: stage.height(),
     fill: 'white',
-    listening: false
+    listening: false,
+    zIndex: 0
 });
 
 // Create Placeholder Shape
@@ -75,7 +76,8 @@ function displayImages() {
               width: image.naturalWidth,
               height: image.naturalHeight,
               draggable: true,
-              name: "rect"
+              name: "rect",
+              zIndex: 1
             });
             layer.add(newImage);
             // dragEvent(newImage);
@@ -84,15 +86,11 @@ function displayImages() {
         });
     });
 }
-function dragEvent(x) {
-    x.on('dragmove', function() {
-        x.stroke('blue');
-        x.strokeWidth(2);
-    });
-    x.on('dragend', function() {
-        x.strokeWidth(0);
-    });
-}
+
+const toTop = document.getElementById('toTop');
+const toBottom = document.getElementById('toBottom');
+const layerDown = document.getElementById('down');
+const layerUp = document.getElementById('Up');
 
 
 // clicks should select/deselect shapes
@@ -104,6 +102,7 @@ stage.on('click tap', function (e) {
       return;
     }
 
+    
 
     // do we pressed shift or ctrl?
     const metaPressed = e.evt.shiftKey || e.evt.ctrlKey || e.evt.metaKey;
@@ -126,10 +125,28 @@ stage.on('click tap', function (e) {
       tr.nodes(nodes);
     }
 
+    toTop.addEventListener('click', () => {
+        e.target.moveToTop();
+    })
+    toBottom.addEventListener('click', () => {
+        e.target.setZIndex(1);
+    })
 });
 
+function dragEvent(x) {
+    x.on('dragmove', function() {
+        x.stroke('blue');
+        x.strokeWidth(2);
+    });
+    x.on('dragend', function() {
+        x.strokeWidth(0);
+    });
+}
 
-var tr = new Konva.Transformer();
+var tr = new Konva.Transformer({
+    anchorCornerRadius: 10,
+    padding: 1
+});
 
 // add the shape to the layer
 layer.add(background);
