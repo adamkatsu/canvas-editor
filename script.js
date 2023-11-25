@@ -76,8 +76,7 @@ function displayImages() {
               width: image.naturalWidth,
               height: image.naturalHeight,
               draggable: true,
-              name: "rect",
-              zIndex: 1
+              cornerRadius: 0  
             });
             layer.add(newImage);
             // dragEvent(newImage);
@@ -91,6 +90,8 @@ const toTop = document.getElementById('toTop');
 const toBottom = document.getElementById('toBottom');
 const layerDown = document.getElementById('down');
 const layerUp = document.getElementById('Up');
+const borderRadius = document.getElementById('border-radius');
+
 
 
 // clicks should select/deselect shapes
@@ -99,10 +100,9 @@ stage.on('click tap', function (e) {
     // console.log(e.target);
     if (e.target === stage) {
       tr.nodes([]);
+      borderRadius.value = 0;
       return;
     }
-
-    
 
     // do we pressed shift or ctrl?
     const metaPressed = e.evt.shiftKey || e.evt.ctrlKey || e.evt.metaKey;
@@ -130,6 +130,11 @@ stage.on('click tap', function (e) {
     })
     toBottom.addEventListener('click', () => {
         e.target.setZIndex(1);
+    })
+    borderRadius.addEventListener('keyup', () => {
+        console.log(borderRadius.value);
+        console.log(typeof borderRadius.value)
+        e.target.cornerRadius(parseInt(borderRadius.value));
     })
 });
 
