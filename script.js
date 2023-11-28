@@ -14,8 +14,9 @@ var background = new Konva.Rect({
     height: stage.height(),
     fill: 'white',
     listening: false,
-    zIndex: 0
+    // zIndex: 0
 });
+background.moveToBottom();
 
 // Create Placeholder Shape
 
@@ -76,6 +77,7 @@ function displayImages() {
               width: image.naturalWidth,
               height: image.naturalHeight,
               draggable: true,
+              zIndex: 2
             //   cornerRadius: 0  
             });
             layer.add(newImage);
@@ -107,6 +109,7 @@ stage.on('click tap', function (e) {
     if (!metaPressed && !isSelected) {
       // if no key pressed and the node is not selected, select just one
       tr.nodes([e.target]);
+
     } else if (metaPressed && isSelected) {
       // if we pressed keys and node was selected, remove it from selection:
       const nodes = tr.nodes().slice(); // use slice to have new copy of array
@@ -120,15 +123,24 @@ stage.on('click tap', function (e) {
     }
 
     toTop.addEventListener('click', () => {
-        e.target.moveToTop();
+        // e.target.moveToTop();
+        tr.nodes().forEach((node) => {
+            node.moveToTop();
+        })
     })
     toBottom.addEventListener('click', () => {
-        e.target.setZIndex(1);
+        // e.target.setZIndex(1);
+        tr.nodes().forEach((node) => {
+            node.zIndex(1);
+        })
     })
     borderRadius.addEventListener('keyup', () => {
         console.log(borderRadius.value);
         console.log(typeof borderRadius.value)
-        e.target.cornerRadius(parseInt(borderRadius.value));
+        // e.target.cornerRadius(parseInt(borderRadius.value));
+        tr.nodes().forEach((node) => {
+            node.cornerRadius(parseInt(borderRadius.value));
+        })
     })
 });
 
