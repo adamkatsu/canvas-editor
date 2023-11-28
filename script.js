@@ -16,7 +16,7 @@ var background = new Konva.Rect({
     listening: false,
     // zIndex: 0
 });
-background.moveToBottom();
+// background.moveToBottom();
 
 // Create Placeholder Shape
 
@@ -99,6 +99,7 @@ stage.on('click tap', function (e) {
     // if click on empty area - remove all selections
     if (e.target === stage) {
       tr.nodes([]);
+      borderRadius.value = 0;
       return;
     }
 
@@ -108,28 +109,30 @@ stage.on('click tap', function (e) {
 
     if (!metaPressed && !isSelected) {
       // if no key pressed and the node is not selected, select just one
-      tr.nodes([e.target]);
-
+        tr.nodes([e.target]);
+        // get border radius value of selected node
+        tr.nodes().forEach((node) => {
+            borderRadius.value = node.attrs.cornerRadius;
+        })
     } else if (metaPressed && isSelected) {
-      // if we pressed keys and node was selected, remove it from selection:
-      const nodes = tr.nodes().slice(); // use slice to have new copy of array
-      // remove node from array
-      nodes.splice(nodes.indexOf(e.target), 1);
-      tr.nodes(nodes);
+        // if we pressed keys and node was selected, remove it from selection:
+        const nodes = tr.nodes().slice(); // use slice to have new copy of array
+        // remove node from array
+        nodes.splice(nodes.indexOf(e.target), 1);
+        tr.nodes(nodes);
     } else if (metaPressed && !isSelected) {
-      // add the node into selection
-      const nodes = tr.nodes().concat([e.target]);
-      tr.nodes(nodes);
+        // add the node into selection
+        const nodes = tr.nodes().concat([e.target]);
+        tr.nodes(nodes);
     }
 
+    // Manipulate Element
     toTop.addEventListener('click', () => {
-        // e.target.moveToTop();
         tr.nodes().forEach((node) => {
             node.moveToTop();
         })
     })
     toBottom.addEventListener('click', () => {
-        // e.target.setZIndex(1);
         tr.nodes().forEach((node) => {
             node.zIndex(1);
         })
@@ -137,7 +140,6 @@ stage.on('click tap', function (e) {
     borderRadius.addEventListener('keyup', () => {
         console.log(borderRadius.value);
         console.log(typeof borderRadius.value)
-        // e.target.cornerRadius(parseInt(borderRadius.value));
         tr.nodes().forEach((node) => {
             node.cornerRadius(parseInt(borderRadius.value));
         })
