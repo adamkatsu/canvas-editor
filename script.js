@@ -76,7 +76,7 @@ function displayImages() {
               width: image.naturalWidth,
               height: image.naturalHeight,
               draggable: true,
-              cornerRadius: 0  
+            //   cornerRadius: 0  
             });
             layer.add(newImage);
             // dragEvent(newImage);
@@ -132,7 +132,7 @@ stage.on('click tap', function (e) {
     })
 });
 
-let dragEvent = (x) => {
+function dragEvent(x) {
     x.on('dragmove', () => {
         x.stroke('blue');
         x.strokeWidth(2);
