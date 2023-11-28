@@ -92,15 +92,11 @@ const layerDown = document.getElementById('down');
 const layerUp = document.getElementById('Up');
 const borderRadius = document.getElementById('border-radius');
 
-
-
 // clicks should select/deselect shapes
 stage.on('click tap', function (e) {
     // if click on empty area - remove all selections
-    // console.log(e.target);
     if (e.target === stage) {
       tr.nodes([]);
-      borderRadius.value = 0;
       return;
     }
 
@@ -109,12 +105,10 @@ stage.on('click tap', function (e) {
     const isSelected = tr.nodes().indexOf(e.target) >= 0;
 
     if (!metaPressed && !isSelected) {
-      // if no key pressed and the node is not selected
-      // select just one
+      // if no key pressed and the node is not selected, select just one
       tr.nodes([e.target]);
     } else if (metaPressed && isSelected) {
-      // if we pressed keys and node was selected
-      // we need to remove it from selection:
+      // if we pressed keys and node was selected, remove it from selection:
       const nodes = tr.nodes().slice(); // use slice to have new copy of array
       // remove node from array
       nodes.splice(nodes.indexOf(e.target), 1);
@@ -138,12 +132,12 @@ stage.on('click tap', function (e) {
     })
 });
 
-function dragEvent(x) {
-    x.on('dragmove', function() {
+let dragEvent = (x) => {
+    x.on('dragmove', () => {
         x.stroke('blue');
         x.strokeWidth(2);
     });
-    x.on('dragend', function() {
+    x.on('dragend', () => {
         x.strokeWidth(0);
     });
 }
