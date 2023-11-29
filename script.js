@@ -26,13 +26,11 @@ var circle = new Konva.Circle({
     y: stage.height() / 2,
     radius: 100,
     fill: 'red',
-    stroke: 'black',
-    strokeWidth: 4,
     draggable: true
 });
 var rect1 = new Konva.Rect({
     id: 'rect',
-    x: 20,
+    x: 200,
     y: 20,
     width: 200,
     height: 200,
@@ -112,7 +110,9 @@ stage.on('click tap', function (e) {
         tr.nodes([e.target]);
         // get border radius value of selected node
         tr.nodes().forEach((node) => {
-            borderRadius.value = node.attrs.cornerRadius;
+            if(node.attrs.cornerRadius > 0) {
+                borderRadius.value = node.attrs.cornerRadius;
+            }
         })
     } else if (metaPressed && isSelected) {
         // if we pressed keys and node was selected, remove it from selection:
@@ -187,11 +187,36 @@ document.getElementById('download').addEventListener('click', () => {
     createEl.remove();
 });
 document.getElementById('select-image').addEventListener('click', () => {
-    const canvas = document.querySelector('#container canvas');
+    const canvas = document.querySelector('#container canvas');``
+    // set image to base64
     let canvasUrl = canvas.toDataURL("image/png", 1.0);
-    document.getElementById('input-cart-img').setAttribute('value', canvasUrl);
-});
-document.getElementById('clear-value').addEventListener('click', () => {
-    document.getElementById('input-cart-img').removeAttribute('value');
+    // document.getElementById('input-cart-img').setAttribute('value', canvasUrl);
 
-})
+    function dataURItoBlob(dataURI){
+        var binary=atob(dataURI.split(',')[1]);
+        var array=[];
+        for(i=0;i<binary.length;i++){
+            array.push(binary.charCodeAt(i));
+        }
+        return new Blob([new Uint8Array(array)],{type:'image/png'});
+    }
+
+    //Function that inserts an array of File objects inside a input type file, because HTMLInputElement.files cannot be setted directly
+    function FileListItems(file_objects){
+        new_input=new ClipboardEvent("").clipboardData||new DataTransfer()
+        for(i=0,size=file_objects.length;i<size;++i){
+            new_input.items.add(file_objects[i]);
+        }
+        return new_input.files;
+    }               
+
+    //Create a Blob object
+    blob=(dataURItoBlob(canvasUrl));
+    //Use the Blob to create a File Object
+    file=new File([blob],"custom-sticker.png",{type:"image/png",lastModified:new Date().getTime()});
+    //Putting the File object inside an array because my input is multiple
+    array_images=[file]; //You can add more File objects if your input is multiple too
+    //Modify the input content to be submited
+    input_images=document.getElementById("input-cart-img")
+    input_images.files=new FileListItems(array_images);
+});
