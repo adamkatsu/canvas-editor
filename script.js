@@ -76,10 +76,8 @@ function displayImages() {
               height: image.naturalHeight,
               draggable: true,
               zIndex: 2
-            //   cornerRadius: 0  
             });
             layer.add(newImage);
-            // dragEvent(newImage);
             // Clear currentImg Array to prevent double image
             currentImg.pop();
         });
@@ -158,16 +156,15 @@ stage.on('click tap', function (e) {
                 x: node.attrs.x + 100,
                 y: node.attrs.y + 100
             });
-            layer.add(clone)
+            layer.add(clone);
+            tr.nodes([]);
         })
-        
         // remove all layer
         previewLayer.destroy();
         // generate new one
         previewLayer = layer.clone({ listening: false });
         previewStage.add(previewLayer);
-      });
-        
+      });  
 });
 
 // function dragEvent(x) {
@@ -211,6 +208,7 @@ document.getElementById('download').addEventListener('click', () => {
     createEl.remove();
 });
 document.getElementById('select-image').addEventListener('click', () => {
+    tr.nodes([]);
     const canvas = document.querySelector('#container canvas');``
     // set image to base64
     let canvasUrl = canvas.toDataURL("image/png", 1.0);
