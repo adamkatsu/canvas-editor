@@ -41,9 +41,9 @@ var rect1 = new Konva.Rect({
 });
 
 let shapes = [circle, rect1];
-shapes.forEach((shape) => {
-    dragEvent(shape);
-});
+// shapes.forEach((shape) => {
+//     dragEvent(shape);
+// });
 
 // Image Upload
 
@@ -91,6 +91,8 @@ const toBottom = document.getElementById('toBottom');
 const layerDown = document.getElementById('down');
 const layerUp = document.getElementById('Up');
 const borderRadius = document.getElementById('border-radius');
+const nodeDelete = document.getElementById('node-delete');
+const nodeClone = document.getElementById('node-clone');
 
 // clicks should select/deselect shapes
 stage.on('click tap', function (e) {
@@ -143,18 +145,40 @@ stage.on('click tap', function (e) {
         tr.nodes().forEach((node) => {
             node.cornerRadius(parseInt(borderRadius.value));
         })
+    });
+    nodeDelete.addEventListener('click', () => {
+        tr.nodes().forEach((node) => {
+            node.destroy();
+            tr.nodes([]);
+        })
     })
+    nodeClone.addEventListener('click', () => {
+        tr.nodes().forEach((node) => {
+            const clone = node.clone({
+                x: node.attrs.x + 100,
+                y: node.attrs.y + 100
+            });
+            layer.add(clone)
+        })
+        
+        // remove all layer
+        previewLayer.destroy();
+        // generate new one
+        previewLayer = layer.clone({ listening: false });
+        previewStage.add(previewLayer);
+      });
+        
 });
 
-function dragEvent(x) {
-    x.on('dragmove', () => {
-        x.stroke('blue');
-        x.strokeWidth(2);
-    });
-    x.on('dragend', () => {
-        x.strokeWidth(0);
-    });
-}
+// function dragEvent(x) {
+//     x.on('dragmove', () => {
+//         x.stroke('blue');
+//         x.strokeWidth(2);
+//     });
+//     x.on('dragend', () => {
+//         x.strokeWidth(0);
+//     });
+// }
 
 var tr = new Konva.Transformer({
     anchorCornerRadius: 10,
