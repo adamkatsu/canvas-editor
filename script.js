@@ -92,13 +92,19 @@ const borderRadius = document.getElementById('border-radius');
 const nodeDelete = document.getElementById('node-delete');
 const nodeClone = document.getElementById('node-clone');
 
+
+
 // clicks should select/deselect shapes
 stage.on('click tap', function (e) {
+    const menuNode = document.getElementById('menu');
+
     // if click on empty area - remove all selections
     if (e.target === stage) {
-      tr.nodes([]);
-      borderRadius.value = 0;
-      return;
+        tr.nodes([]);
+        borderRadius.value = 0;
+        menuNode.style.display = 'none';
+
+        return;
     }
 
     // do we pressed shift or ctrl?
@@ -106,6 +112,7 @@ stage.on('click tap', function (e) {
     const isSelected = tr.nodes().indexOf(e.target) >= 0;
 
     if (!metaPressed && !isSelected) {
+
       // if no key pressed and the node is not selected, select just one
         tr.nodes([e.target]);
         // get border radius value of selected node
@@ -114,13 +121,17 @@ stage.on('click tap', function (e) {
                 borderRadius.value = node.attrs.cornerRadius;
             }
         })
+
     } else if (metaPressed && isSelected) {
+
         // if we pressed keys and node was selected, remove it from selection:
         const nodes = tr.nodes().slice(); // use slice to have new copy of array
         // remove node from array
         nodes.splice(nodes.indexOf(e.target), 1);
         tr.nodes(nodes);
+
     } else if (metaPressed && !isSelected) {
+
         // add the node into selection
         const nodes = tr.nodes().concat([e.target]);
         tr.nodes(nodes);
@@ -131,12 +142,14 @@ stage.on('click tap', function (e) {
         tr.nodes().forEach((node) => {
             node.moveToTop();
         })
-    })
+    });
+
     toBottom.addEventListener('click', () => {
         tr.nodes().forEach((node) => {
             node.zIndex(1);
         })
-    })
+    });
+
     borderRadius.addEventListener('keyup', () => {
         console.log(borderRadius.value);
         console.log(typeof borderRadius.value)
@@ -144,12 +157,14 @@ stage.on('click tap', function (e) {
             node.cornerRadius(parseInt(borderRadius.value));
         })
     });
+
     nodeDelete.addEventListener('click', () => {
         tr.nodes().forEach((node) => {
             node.destroy();
             tr.nodes([]);
         })
     })
+
     nodeClone.addEventListener('click', () => {
         tr.nodes().forEach((node) => {
             const clone = node.clone({
@@ -165,17 +180,20 @@ stage.on('click tap', function (e) {
         previewLayer = layer.clone({ listening: false });
         previewStage.add(previewLayer);
       });  
-});
 
-// function dragEvent(x) {
-//     x.on('dragmove', () => {
-//         x.stroke('blue');
-//         x.strokeWidth(2);
-//     });
-//     x.on('dragend', () => {
-//         x.strokeWidth(0);
-//     });
-// }
+    tr.nodes().forEach((node) => {
+        node.addEventListener('contextmenu', (e) => {
+            var containerRect = stage.container().getBoundingClientRect();
+            
+            menuNode.style.display = 'block'
+            menuNode.style.top = containerRect.top + stage.getPointerPosition().y + 4 + 'px';
+            menuNode.style.left = containerRect.left + stage.getPointerPosition().x + 4 + 'px';
+            
+            e.preventDefault();
+
+        })
+      })
+});
 
 var tr = new Konva.Transformer({
     anchorCornerRadius: 10,
@@ -194,7 +212,7 @@ stage.add(layer);
 // draw the image
 layer.draw();
 
-
+// Download Image
 document.getElementById('download').addEventListener('click', () => {
     tr.nodes([]);
 
@@ -207,6 +225,7 @@ document.getElementById('download').addEventListener('click', () => {
     createEl.click();
     createEl.remove();
 });
+// Set Image to Input
 document.getElementById('select-image').addEventListener('click', () => {
     tr.nodes([]);
     const canvas = document.querySelector('#container canvas');``

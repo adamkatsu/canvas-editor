@@ -10,6 +10,35 @@
         input, button {
             display: block !important;
         }
+        #menu {
+            display: none;
+            position: absolute;
+            width: 120px;
+            background-color: rgba(255,255,255, 0.8);
+            box-shadow: 0 0 5px grey;
+            border-radius: 3px;
+            color: #1a1a1a;
+        }
+
+        #menu button, #menu label {
+            width: 100%;
+            max-width: 100%;
+            background-color: rgba(255,255,255, 0.8);
+            border: none;
+            margin: 0;
+            padding: 10px;
+        }
+
+        #menu input {
+            border: 1px solid #1a1a1a;
+            margin-top: 8px;
+            padding: 8px;
+        }
+
+        #menu button:hover {
+            background-color: lightgray;
+            cursor: pointer;
+        }
     </style>
     
 </head>
@@ -17,22 +46,24 @@
     
 
     <div id="container" style="width: 1600px; height: 100%;"></div>
+    <div id="menu">
+        <div>
+            <button id="toTop">Move to top</button>
+            <button id="toBottom">Move to bottom</button>
+            <button id="node-clone">Clone Item</button>
+            <label for="border-radius">Border Radius</label>
+            <input type="number" name="border-radius" id="border-radius">
+            <button id="node-delete">Delete Item</button>
+        </div>
+      </div>
     <div class="buttons-wrapper" style="display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: .5rem;">
         <h2>Upload Image</h2>
         <input id="input-img" type="file" accept="image/*">
         <h2>Layer Manipulation</h2>
         <div class="display: flex; flex-direction: row; gap: 1rem; flex-wrap: wrap;">
-            <button id="toTop">Move to top</button>
-            <button id="toBottom">Move to bottom</button>
-            <button id="node-clone">Clone Item</button>
-            <span>Border-radius</span>
-            <input type="number" name="border-radius" id="border-radius">
-            <br><br>
-            <button id="node-delete">Delete Item</button>
+            
         </div>
-        <h2>Download Image</h2>
         <button id="download">Download</button>
-        <h2>Set image in input</h2>
         <button id="select-image">Set Image</button>
         <!-- <span>((Placeholder input))</span>
         <input id="input-cart-img" type="file" accept="image/*"> -->
