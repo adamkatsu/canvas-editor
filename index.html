@@ -13,11 +13,12 @@
         #menu {
             display: none;
             position: absolute;
-            width: 120px;
+            width: 160px;
             background-color: rgba(255,255,255, 0.8);
             box-shadow: 0 0 5px grey;
             border-radius: 3px;
             color: #1a1a1a;
+            /* overflow: hidden; */
         }
 
         #menu button, #menu label {
@@ -33,6 +34,8 @@
             border: 1px solid #1a1a1a;
             margin-top: 8px;
             padding: 8px;
+            max-width: 100%;
+            /* width: 100%; */
         }
 
         #menu button:hover {
@@ -53,22 +56,18 @@
             <button id="node-clone">Clone Item</button>
             <label for="border-radius">Border Radius</label>
             <input type="number" name="border-radius" id="border-radius">
+            <label for="stroke">Stroke</label>
+            <input type="number" name="stroke" id="stroke">
             <button id="node-delete">Delete Item</button>
         </div>
       </div>
     <div class="buttons-wrapper" style="display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: .5rem;">
-        <h2>Upload Image</h2>
+        <h2>Image</h2>
         <input id="input-img" type="file" accept="image/*">
-        <h2>Layer Manipulation</h2>
-        <div class="display: flex; flex-direction: row; gap: 1rem; flex-wrap: wrap;">
-            
-        </div>
-        <button id="download">Download</button>
-        <button id="select-image">Set Image</button>
-        <!-- <span>((Placeholder input))</span>
-        <input id="input-cart-img" type="file" accept="image/*"> -->
+        <button id="download">Download Canvas</button>
+        <button id="select-image">Set Canvas</button>
 
-        <form action="https://formsubmit.co/adamkatsu@gmail.com" method="POST" enctype="multipart/form-data">
+        <form action="https://formsubmit.co/adamkatsu369@gmail.com" method="POST" enctype="multipart/form-data">
             <h2>Form Submission</h2>
             <label for="name">Name</label>
             <input type="text" name="name">

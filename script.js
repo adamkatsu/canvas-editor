@@ -89,8 +89,16 @@ const toBottom = document.getElementById('toBottom');
 const layerDown = document.getElementById('down');
 const layerUp = document.getElementById('Up');
 const borderRadius = document.getElementById('border-radius');
+const elStroke = document.getElementById('stroke');
 const nodeDelete = document.getElementById('node-delete');
 const nodeClone = document.getElementById('node-clone');
+
+
+
+// window.addEventListener('click', () => {
+//     // hide menu
+//     document.getElementById('menu').style.display = 'none';
+//   });
 
 
 
@@ -120,6 +128,9 @@ stage.on('click tap', function (e) {
             if(node.attrs.cornerRadius > 0) {
                 borderRadius.value = node.attrs.cornerRadius;
             }
+            if(node.attrs.strokeWidth > 0) {
+                elStroke.value = node.attrs.strokeWidth;
+            }
         })
 
     } else if (metaPressed && isSelected) {
@@ -137,7 +148,9 @@ stage.on('click tap', function (e) {
         tr.nodes(nodes);
     }
 
+
     // Manipulate Element
+
     toTop.addEventListener('click', () => {
         tr.nodes().forEach((node) => {
             node.moveToTop();
@@ -155,6 +168,12 @@ stage.on('click tap', function (e) {
         console.log(typeof borderRadius.value)
         tr.nodes().forEach((node) => {
             node.cornerRadius(parseInt(borderRadius.value));
+        })
+    });
+    elStroke.addEventListener('keyup', () => {
+        tr.nodes().forEach((node) => {
+            node.stroke('black');
+            node.strokeWidth(parseInt(elStroke.value));
         })
     });
 
@@ -192,12 +211,12 @@ stage.on('click tap', function (e) {
             e.preventDefault();
 
         })
-      })
+    })
 });
 
 var tr = new Konva.Transformer({
     anchorCornerRadius: 10,
-    padding: 1
+    padding: 1,
 });
 
 // add the shape to the layer
@@ -205,12 +224,13 @@ layer.add(background);
 layer.add(circle);
 layer.add(rect1);
 layer.add(tr)
-
 // add the layer to the stage
 stage.add(layer);
-
 // draw the image
 layer.draw();
+
+
+
 
 // Download Image
 document.getElementById('download').addEventListener('click', () => {
