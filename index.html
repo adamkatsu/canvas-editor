@@ -34,8 +34,21 @@
         <button id="download">Download</button>
         <h2>Set image in input</h2>
         <button id="select-image">Set Image</button>
-        <span>((Placeholder input))</span>
-        <input id="input-cart-img" type="file" accept="image/*">
+        <!-- <span>((Placeholder input))</span>
+        <input id="input-cart-img" type="file" accept="image/*"> -->
+
+        <form action="https://formsubmit.co/adamkatsu@gmail.com" method="POST" enctype="multipart/form-data">
+            <h2>Form Submission</h2>
+            <label for="name">Name</label>
+            <input type="text" name="name">
+            <label for="email">Email</label>
+            <input type="email" name="email">
+            <input type="hidden" name="_subject" value="New submission!">
+            <span>((Placeholder input))</span>
+            <input id="input-cart-img" type="file" name="image" accept="image/*">
+            <input type="hidden" name="_captcha" value="false">
+            <button type="submit">Send</button>
+       </form>
     </div>
 
     <script src="script.js"></script>
