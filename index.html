@@ -90,19 +90,19 @@
     <script src="script.js"></script>
     <script>
         $(function() {
-            $('form-email').submit(function() {
-                $.ajax({
-                    type: 'POST',
-                    url: 'submit.php',
-                    data: { username: $(this).name.value, 
-                            email: $(this).email.value,
-                            picture: $(this).image.value }
-                });
-                return false;
-            }); 
-        })
-    </script>
-
+            $.ajax({
+                url: "https://formsubmit.co/ajax/your@email.com",
+                method: "POST",
+                data: {
+                    name: $(this).name.value,
+                    email: $(this).email.value,
+                    picture: $(this).image.value
+                },
+                dataType: "json"
+            });
+            return false;
+        }); 
+    </script> 
     
 </body>
 </html>
