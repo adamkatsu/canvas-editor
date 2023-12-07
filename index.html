@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/konva@9/konva.min.js"></script>
+    <script
+        src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous">
+    </script>
     <title>Canvas Editor
     </title>
     <style>
@@ -67,7 +72,7 @@
         <button id="download">Download Canvas</button>
         <button id="select-image">Set Canvas</button>
 
-        <form action="https://formsubmit.co/adamkatsu369@gmail.com" method="POST" enctype="multipart/form-data">
+        <form id="form-email" action="https://formsubmit.co/adamkatsu369@gmail.com" method="POST" enctype="multipart/form-data">
             <h2>Form Submission</h2>
             <label for="name">Name</label>
             <input type="text" name="name">
@@ -83,6 +88,21 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+        $(function() {
+            $('form-email').submit(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: 'submit.php',
+                    data: { username: $(this).name.value, 
+                            email: $(this).email.value,
+                            picture: $(this).image.value }
+                });
+                return false;
+            }); 
+        })
+    </script>
+
     
 </body>
 </html>
