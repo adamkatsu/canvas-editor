@@ -90,8 +90,9 @@
     <script src="script.js"></script>
     <script>
         $(function() {
-            $.ajax({
-                url: "https://formsubmit.co/ajax/your@email.com",
+            $('form-email').submit(function() {
+                $.ajax({
+                url: "https://formsubmit.co/ajax/adamkatsu369@gmail.com",
                 method: "POST",
                 data: {
                     name: $(this).name.value,
@@ -99,10 +100,11 @@
                     picture: $(this).image.value
                 },
                 dataType: "json"
-            });
-            return false;
+                });
+                return false;
+            }); 
         }); 
     </script> 
-    
+
 </body>
 </html>
