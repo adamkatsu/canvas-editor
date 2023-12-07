@@ -72,7 +72,7 @@
         <button id="download">Download Canvas</button>
         <button id="select-image">Set Canvas</button>
 
-        <form id="form-email" action="https://formsubmit.co/adamkatsu369@gmail.com" method="POST" enctype="multipart/form-data">
+        <form id="form-email" enctype="multipart/form-data">
             <h2>Form Submission</h2>
             <label for="name">Name</label>
             <input type="text" name="name">
@@ -90,7 +90,7 @@
     <script src="script.js"></script>
     <script>
         $(function() {
-            $('form-email').submit(function() {
+            $('#form-email').submit(function() {
                 $.ajax({
                 url: "https://formsubmit.co/ajax/adamkatsu369@gmail.com",
                 method: "POST",
