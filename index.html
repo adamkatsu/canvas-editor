@@ -4,11 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/konva@9/konva.min.js"></script>
-    <script
-        src="https://code.jquery.com/jquery-3.7.1.js"
-        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-        crossorigin="anonymous">
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>Canvas Editor
     </title>
     <style>
@@ -53,12 +49,24 @@
 <body style="background-color: #666; display: flex; flex-direction: row; justify-content: flex-start; align-items: flex-start; gap: 2rem; color: whitesmoke;">
     
 
-    <div id="container" style="width: 1600px; height: 100%;"></div>
+    <div class="canvas-wrapper">
+        <div class="width-wrapper" style="display: flex; justify-content: center; align-items: center; width: 100%; margin-bottom: 8px;">
+            <span id="canvas-width" style="font-size: 24px;">xx mm</span>
+        </div>
+        <div class="height-wrapper" style="display: flex; flex-direction: row; align-items: center; gap: 8px;">
+            <div id="container" style="width: 1480px; height: 1050px;"></div>
+            <span id="canvas-height" style="font-size: 24px;">xx mm</span>
+        </div>
+    </div>
     <div id="menu">
         <div>
             <button id="toTop">Move to top</button>
             <button id="toBottom">Move to bottom</button>
             <button id="node-clone">Clone Item</button>
+            <label for="item-width">Width</label>
+            <input type="number" name="item-width" id="item-width">
+            <label for="item-height">Height</label>
+            <input type="number" name="item-height" id="item-height">
             <label for="border-radius">Border Radius</label>
             <input type="number" name="border-radius" id="border-radius">
             <label for="stroke">Stroke</label>
@@ -75,37 +83,56 @@
         <form id="form-email" action="https://formsubmit.co/adamkatsu369@gmail.com" method="POST" enctype="multipart/form-data">
             <h2>Form Submission</h2>
             <label for="name">Name</label>
-            <input type="text" name="name">
+            <input id="input-name" type="text" name="name">
             <label for="email">Email</label>
-            <input type="email" name="email">
+            <input id="input-email" type="email" name="email">
             <input type="hidden" name="_subject" value="New submission!">
             <span>((Placeholder input))</span>
             <input id="input-cart-img" type="file" name="image" accept="image/*">
             <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_next" value="http://127.0.0.1:5500/index.html">
             <button type="submit">Send</button>
        </form>
     </div>
 
     <script src="script.js"></script>
     <script>
-        $(function() {
-            $('#form-email').submit(function() {
-                $.ajax({
-                url: "https://formsubmit.co/ajax/adamkatsu369@gmail.com",
-                method: "POST",
-                data: {
-                    name: $(this).name.value,
-                    email: $(this).email.value,
-                    picture: $(this).image.value,
-                    ajax: "ajax"
-                },
-                dataType: "json"
-                });
-                return false;
-            }); 
-        }); 
-    </script> 
+
+    //     $('#form-email').submit(function(event) {
+    //         event.preventDefault();
+
+
+    //         let sendPicture = $('#input-cart-img')[0].files[0]
+    //         // Create a FormData object to handle file uploads
+    //         var formData = new FormData(this);
+
+    //         // Add additional data to the FormData object
+    //         // formData.append('ajax', 'ajax');
+    //         formData.append('file', sendPicture);
+
+    //         $.ajax({
+    //         url: "https://formsubmit.co/ajax/adamkatsu369@gmail.com",
+    //         method: "POST",
+    //         contentType: false, // Set contentType to false for FormData
+    //         processData: false, // Set processData to false for FormData
+    //         data: formData,
+    //         accepts: 'application/json',
+    //         // data: {
+    //             //     name: $('#input-name').val(),
+    //             //     email: $('#input-email').val(),
+    //             //     // picture: $('#input-cart-img').prop('files')[0],
+    //             //     picture: $('#input-cart-img').val(),
+    //             //     // picture: sendPicture,
+    //             //     ajax: "ajax"
+    //             // },
+    //         dataType: "json",
+    //         success: (data) => console.log(data),
+    //         error: (err) => console.log(err)
+    //         }); 
+            
+    //     }); 
+    // </script> 
 
 </body>
 </html>

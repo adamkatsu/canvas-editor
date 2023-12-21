@@ -2,9 +2,11 @@
 
 var stage = new Konva.Stage({
     container: 'container',   // id of container <div>
-    width: 1600,
-    height: 900,
+    width: 1480,
+    height: 1050,
 });
+document.getElementById('canvas-width').innerHTML = stage.attrs.width / 10 + ' mm';
+document.getElementById('canvas-height').innerHTML = stage.attrs.height / 10 + ' mm';
 var layer = new Konva.Layer();
 // White Background
 var background = new Konva.Rect({
@@ -88,11 +90,12 @@ const toTop = document.getElementById('toTop');
 const toBottom = document.getElementById('toBottom');
 const layerDown = document.getElementById('down');
 const layerUp = document.getElementById('Up');
+const itemWidth = document.getElementById('item-width');
+const itemHeight = document.getElementById('item-height');
 const borderRadius = document.getElementById('border-radius');
 const elStroke = document.getElementById('stroke');
 const nodeDelete = document.getElementById('node-delete');
 const nodeClone = document.getElementById('node-clone');
-
 
 
 // window.addEventListener('click', () => {
@@ -130,6 +133,12 @@ stage.on('click tap', function (e) {
             }
             if(node.attrs.strokeWidth > 0) {
                 elStroke.value = node.attrs.strokeWidth;
+            }
+            if(node.attrs.width > 0) {
+                itemWidth.value = node.attrs.height;
+            }
+            if(node.attrs.height > 0) {
+                itemHeight.value = node.attrs.height;
             }
         })
 
@@ -174,6 +183,16 @@ stage.on('click tap', function (e) {
         tr.nodes().forEach((node) => {
             node.stroke('black');
             node.strokeWidth(parseInt(elStroke.value));
+        })
+    });
+    itemWidth.addEventListener('keyup', () => {
+        tr.nodes().forEach((node) => {
+            node.width(parseInt(itemWidth.value));
+        })
+    });
+    itemHeight.addEventListener('keyup', () => {
+        tr.nodes().forEach((node) => {
+            node.height(parseInt(itemHeight.value));
         })
     });
 
@@ -253,6 +272,7 @@ document.getElementById('select-image').addEventListener('click', () => {
     let canvasUrl = canvas.toDataURL("image/png", 1.0);
     // document.getElementById('input-cart-img').setAttribute('value', canvasUrl);
 
+
     function dataURItoBlob(dataURI){
         var binary=atob(dataURI.split(',')[1]);
         var array=[];
@@ -274,10 +294,11 @@ document.getElementById('select-image').addEventListener('click', () => {
     //Create a Blob object
     blob=(dataURItoBlob(canvasUrl));
     //Use the Blob to create a File Object
-    file=new File([blob],"custom-sticker.png",{type:"image/png",lastModified:new Date().getTime()});
+    file=new File([blob],"custom-sticker.png",{type:"imageß/png",lastModified:new Date().getTime()});
     //Putting the File object inside an array because my input is multiple
     array_images=[file]; //You can add more File objects if your input is multiple too
     //Modify the input content to be submited
     input_images=document.getElementById("input-cart-img")
     input_images.files=new FileListItems(array_images);
+    // console.log(input_images.files)
 });
