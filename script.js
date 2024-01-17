@@ -230,6 +230,9 @@ stage.on('click tap', function (e) {
             e.preventDefault();
 
         })
+        node.addEventListener('mousedown', () => {
+            menuNode.style.display = 'none';
+        })
     })
 });
 
